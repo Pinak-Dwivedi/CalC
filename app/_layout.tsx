@@ -1,37 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Slot } from "expo-router";
+import ThemeProvider from "@/context/ThemeProvider";
+import * as Font from "expo-font";
+import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect, useState } from "react";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
-    if (loaded) {
+    Font.loadAsync({
+      ...FontAwesome5.font,
+      ...FontAwesome6.font,
+    }).then(() => {
+      setFontsLoaded(true);
       SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    });
+  }, []);
 
-  if (!loaded) {
-    return null;
-  }
+  if (!fontsLoaded) return null;
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+    <ThemeProvider>
+      <Slot />
     </ThemeProvider>
   );
 }

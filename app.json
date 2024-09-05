@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "Calc",
-    "slug": "Calc",
+    "name": "CalC",
+    "slug": "CalC",
+    "description": "CalC is a calculator application.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "calc",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -19,7 +20,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.pinakdwivedi.CalC"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +33,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d9610d81-54f3-4903-9931-4a28c8e00a16"
+      }
     }
   }
 }
